@@ -1,12 +1,15 @@
 ---
 # defaults file for sa-graylog
 
+graylog_api_domain: SET
 
 graylog_secret: Srq1IiuBwXrTwiw78dJBeLvWd4CbHYCOoO0NL4i74QWOImZqvbUzaD5PisTcP2aJ
 
 graylog_properties:
   - {regexp: "^#?password_secret =.*", line: "password_secret ={{graylog_secret}}"}
 
+graylog_nginx_properties:
+  - {regexp: "^#?rest_listen_uri =.*", line: "rest_listen_uri =http://{{graylog_api_domain}}/api/"}
 
 option_install_java: false
 option_install_elastic_search: false
@@ -15,3 +18,4 @@ option_nginx_frontend: false
 java_version: 8
 
 elasticsearch_plugins: []
+
