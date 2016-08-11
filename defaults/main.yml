@@ -10,8 +10,8 @@ graylog_properties:
 
 option_install_java: false
 option_install_elastic_search: false
+option_nginx_frontend: false
 
 java_version: 8
 
 elasticsearch_plugins: []
-

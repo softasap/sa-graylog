@@ -1,0 +1,19 @@
+---
+  #
+  # - action: apt pkg=python-passlib state=latest install_recommends=yes
+  #   become: yes
+  #
+  # - name: Nginx | configure basic auth
+  #   htpasswd: path=/etc/nginx/decodeonhtdocs name=devdocs password=H2Z8VwgPOTccnEX owner=root group=www-data mode=0644
+  #   become: yes
+
+  - name: Nginx | configure web startup
+    template: src="{{playbook_dir}}/templates/nginx.conf.j2" dest="/etc/nginx/sites-available/graylog.conf"
+
+  - name: Nginx | Enable sites
+    command: ln -fs /etc/nginx/sites-available/graylog.conf /etc/nginx/sites-enabled/graylog.conf creates=/etc/nginx/sites-enabled/graylog.conf
+    become: yes
+
+  - name: Nginx | Restart
+    service: name="nginx" state=restarted
+    become: yes
