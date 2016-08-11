@@ -1,0 +1,33 @@
+---
+- name: GrayLog | Check if my_package is installed
+  command: dpkg-query -W graylog-server
+  register: graylog_check_deb
+  become: yes
+  failed_when: graylog_check_deb.rc > 1
+  changed_when: graylog_check_deb.rc == 1
+  tags:
+    -graylog
+
+
+- name: GrayLog | download package
+  get_url:
+    url="https://packages.graylog2.org/repo/packages/graylog-2.0-repository_latest.deb"
+    dest="/tmp/graylog-2.0-repository_latest.deb"
+  when: graylog_check_deb.rc == 1
+  tags:
+    -graylog
+
+- name: GrayLog | install package
+  apt: deb="/tmp/graylog-2.0-repository_latest.deb"
+  become: true
+  when: graylog_check_deb.rc == 1
+  tags:
+    -graylog
+
+
+- name: GrayLog | Start service
+  service: name=graylog-server state=restarted
+  become: true
+  tags:
+    -graylog
+

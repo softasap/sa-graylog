@@ -1,0 +1,7 @@
+---
+# defaults file for sa-graylog
+
+option_install_java: false
+
+java_version: 8
+
