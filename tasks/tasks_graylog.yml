@@ -25,7 +25,7 @@
     -graylog
 
 - name: GrayLog | install graylog server
-  apt: pkg=graylog-server state=present
+  apt: pkg=graylog-server state=present update_cache=yes
   become: yes
   when: graylog_check_deb.rc == 1
   tags:
