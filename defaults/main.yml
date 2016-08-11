@@ -4,12 +4,20 @@
 graylog_api_domain: SET
 graylog_plugin_path: /usr/share/graylog-server/plugin
 
+# Important! We recommend to call the cluster graylog-production or graylog, but not elasticsearch to prevent accidental cluster name collisions.
+
+graylog_elasticsearch_cluster_name: elasticsearch
+
 graylog_secret: Srq1IiuBwXrTwiw78dJBeLvWd4CbHYCOoO0NL4i74QWOImZqvbUzaD5PisTcP2aJ
 graylog_admin_password_sha256: daa35e4f1a0e43def76e13a948cbda05be2569901fa0c6d5d6342fb2bdc85028 #admin!
 
 graylog_properties:
   - {regexp: "^#?password_secret =.*", line: "password_secret ={{graylog_secret}}"}
   - {regexp: "^#?root_password_sha2 =.*", line: "root_password_sha2 ={{graylog_admin_password_sha256}}"}
+  - {regexp: "^#?elasticsearch_cluster_name =.*", line: "elasticsearch_cluster_name ={{graylog_elasticsearch_cluster_name}}"}
+
+
+
 
 graylog_nginx_properties:
   - {regexp: "^#?rest_listen_uri =.*", line: "rest_listen_uri =http://{{graylog_api_domain}}/api/"}
