@@ -14,6 +14,7 @@
        }
      - {
          role: "sa-graylog",
+         graylog_api_domain: "{{graylog_domain}}",
          option_install_java: true,
          option_install_elastic_search: true,
          option_nginx_frontend: true
