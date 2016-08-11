@@ -9,7 +9,7 @@
 
   - name: Nginx | configure web startup
     template: src="{{role_path}}/templates/nginx.conf.j2" dest="/etc/nginx/sites-available/graylog.conf"
-    become:yes    
+    become: yes    
 
   - name: Nginx | Enable sites
     command: ln -fs /etc/nginx/sites-available/graylog.conf /etc/nginx/sites-enabled/graylog.conf creates=/etc/nginx/sites-enabled/graylog.conf
