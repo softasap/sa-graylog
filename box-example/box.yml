@@ -10,7 +10,9 @@
 
   roles:
      - {
-         role: "sa-graylog"
+         role: "sa-graylog",
+         option_install_java: true,
+         option_install_elastic_search: true 
        }
 
 
