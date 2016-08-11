@@ -41,6 +41,7 @@
 - name: Graylog | Install additional non-bundled plugins
   get_url: url="{{item.url}}" dest="{{graylog_plugin_path}}/{{item.name}}"
   with_items: "{{graylog_plugins | default([])}}"
+  become: yes
 
 - name: GrayLog | Start service
   service: name=graylog-server state=restarted
