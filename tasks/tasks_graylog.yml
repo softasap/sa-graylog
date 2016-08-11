@@ -17,10 +17,16 @@
   tags:
     -graylog
 
-- name: GrayLog | install package
-  apt: deb="/tmp/graylog-2.0-repository_latest.deb"
+- name: GrayLog | install apt sources from deb packages
+  shell: "dpkg -i /tmp/graylog-2.0-repository_latest.deb"
   become: true
   when: graylog_check_deb.rc == 1
+  tags:
+    -graylog
+
+- name: GrayLog | install graylog server
+  apt: pkg=graylog-server state=present
+  become: yes
   tags:
     -graylog
 

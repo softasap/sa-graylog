@@ -1,10 +1,4 @@
-# All credits to https://raw.githubusercontent.com/StarterSquad/prudentia/develop/prudentia/tasks/elasticsearch.yml
 ---
-  # Parameters:
-  #  elasticsearch_version (provided)
-  #  elasticsearch_plugins (provided)
-  #  elasticsearch_config_file
-
   - name: ElasticSearch | Install python-pycurl
     apt: pkg=python-pycurl state=installed
     become: yes
@@ -12,13 +6,13 @@
       - es
 
   - name: ElasticSearch | Add GPG key to apt keyring
-    apt_key: url=http://packages.elasticsearch.org/GPG-KEY-elasticsearch state=present
+    apt_key: url=https://packages.elastic.co/GPG-KEY-elasticsearch state=present
     become: yes
     tags:
       - es
 
   - name: ElasticSearch | Add Debian apt repository
-    apt_repository: repo="deb http://packages.elasticsearch.org/elasticsearch/{{elasticsearch_version}}/debian stable main" state=present update_cache=yes
+    apt_repository: repo="deb https://packages.elastic.co/elasticsearch/2.x/debian stable main" state=present update_cache=yes
     become: yes
     tags:
       - es
@@ -38,18 +32,6 @@
     tags:
       - es
 
-  - name: ElasticSearch | Config
-    template: src={{elasticsearch_config_file}} dest=/etc/elasticsearch/elasticsearch.yml
-    when: elasticsearch_config_file is defined
-    become: yes
-    tags:
-      - es
-
-  - name: ElasticSearch | Fix init.d script
-    lineinfile: dest=/etc/init.d/elasticsearch regexp="^PID_DIR=.*" line="PID_DIR=\"/var/run\""
-    become: yes
-    tags:
-      - es
 
   - name: ElasticSearch | Restart
     action: service name=elasticsearch state=restarted enabled=yes
