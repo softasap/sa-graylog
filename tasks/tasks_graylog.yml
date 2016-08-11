@@ -27,13 +27,21 @@
 - name: GrayLog | install graylog server
   apt: pkg=graylog-server state=present
   become: yes
+  when: graylog_check_deb.rc == 1
   tags:
     -graylog
 
+- name: GrayLog | patch configs
+  lineinfile: dest=/etc/graylog/server/server.conf regexp="{{item.regexp}}" line="{{item.line}}"
+  with_items: "{{graylog_properties | default([])}}"
+  when: graylog_properties is defined
+  notify: restart graylog-server
+  become: yes
 
 - name: GrayLog | Start service
   service: name=graylog-server state=restarted
   become: true
+  when: (graylog_check_deb.rc == 1) and docker_test is not defined
   tags:
     -graylog
 
