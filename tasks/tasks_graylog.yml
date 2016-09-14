@@ -11,14 +11,14 @@
 
 - name: GrayLog | download package
   get_url:
-    url="https://packages.graylog2.org/repo/packages/graylog-2.0-repository_latest.deb"
-    dest="/tmp/graylog-2.0-repository_latest.deb"
+    url="https://packages.graylog2.org/repo/packages/graylog-2.1-repository_latest.deb"
+    dest="/tmp/graylog-2.1-repository_latest.deb"
   when: graylog_check_deb.rc == 1
   tags:
     -graylog
 
 - name: GrayLog | install apt sources from deb packages
-  shell: "dpkg -i /tmp/graylog-2.0-repository_latest.deb"
+  shell: "dpkg -i /tmp/graylog-2.1-repository_latest.deb"
   become: true
   when: graylog_check_deb.rc == 1
   tags:
