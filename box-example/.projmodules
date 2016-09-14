@@ -4,3 +4,6 @@
 [submodule "roles/sa-nginx"]
         path = roles/sa-nginx
         url = https://github.com/softasap/sa-nginx.git
+[submodule "roles/sa-mongo"]
+        path = roles/sa-mongo
+        url = https://github.com/softasap/sa-mongo.git
