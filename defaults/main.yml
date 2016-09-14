@@ -20,7 +20,7 @@ graylog_properties:
 
 
 graylog_nginx_properties:
-  - {regexp: "^#?rest_listen_uri =.*", line: "rest_listen_uri =http://{{graylog_api_domain}}/api/"}
+  - {regexp: "^#?web_endpoint_uri =.*", line: "web_endpoint_uri =http://{{graylog_api_domain}}/api/"}
 
 graylog_plugins:
   - {
