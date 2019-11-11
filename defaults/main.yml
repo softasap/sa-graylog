@@ -4,6 +4,8 @@
 graylog_api_domain: SET
 graylog_plugin_path: /usr/share/graylog-server/plugin
 
+graylog_version: "3.1"
+
 # Important! We recommend to call the cluster graylog-production or graylog, but not elasticsearch to prevent accidental cluster name collisions.
 
 graylog_elasticsearch_cluster_name: elasticsearch

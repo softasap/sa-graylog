@@ -12,13 +12,13 @@
       - es
 
   - name: ElasticSearch | Add Debian apt repository
-    apt_repository: repo="deb https://packages.elastic.co/elasticsearch/2.x/debian stable main" state=present update_cache=yes
+    apt_repository: repo="deb https://artifacts.elastic.co/packages/oss-6.x/apt stable main" state=present update_cache=yes
     become: yes
     tags:
       - es
 
   - name: ElasticSearch | Install
-    apt: update-cache=yes pkg=elasticsearch state=present
+    apt: update-cache=yes pkg=elasticsearch-oss state=present
     become: yes
     tags:
       - es
