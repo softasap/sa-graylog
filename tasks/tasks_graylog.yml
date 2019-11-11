@@ -32,15 +32,15 @@
     -graylog
 
 - name: GrayLog | patch configs
-  lineinfile: dest=/etc/graylog/server/server.conf regexp="{{item.regexp}}" line="{{item.line}}"
-  with_items: "{{graylog_properties | default([])}}"
+  lineinfile: dest=/etc/graylog/server/server.conf regexp="{{ item.regexp }}" line="{{ item.line }}"
+  with_items: "{{ graylog_properties | default([]) }}"
   when: graylog_properties is defined
   notify: restart graylog-server
   become: yes
 
 - name: Graylog | Install additional non-bundled plugins
-  get_url: url="{{item.url}}" dest="{{graylog_plugin_path}}/{{item.name}}"
-  with_items: "{{graylog_plugins | default([])}}"
+  get_url: url="{{ item.url }}" dest="{{ graylog_plugin_path }}/{{ item.name }}"
+  with_items: "{{ graylog_plugins | default([]) }}"
   become: yes
 
 - name: GrayLog | Start service

@@ -1,6 +1,6 @@
 ---
   - name: ElasticSearch | Install python-pycurl
-    apt: pkg=python-pycurl state=installed
+    apt: pkg=python-pycurl state=present
     become: yes
     tags:
       - es
@@ -18,13 +18,14 @@
       - es
 
   - name: ElasticSearch | Install
-    apt: update-cache=yes pkg=elasticsearch state=latest
+    apt: update-cache=yes pkg=elasticsearch state=present
     become: yes
     tags:
       - es
+      - skip_ansible_lint
 
   - name: ElasticSearch | Create log and data folders
-    file: path={{item}} state=directory owner=elasticsearch group=elasticsearch
+    file: path={{ item }} state=directory owner=elasticsearch group=elasticsearch
     with_items:
       - "/var/log/elasticsearch"
       - "/var/data/elasticsearch"
@@ -40,8 +41,10 @@
       - es
 
   - name: ElasticSearch | Install plugins
-    command: /usr/share/elasticsearch/bin/plugin --install {{item.plugin}} creates=/usr/share/elasticsearch/plugins/{{item.name}}/_site/.gitignore
-    with_items: '{{elasticsearch_plugins}}'
+    command: /usr/share/elasticsearch/bin/plugin --install {{ item.plugin }}
+    args:
+      creates: /usr/share/elasticsearch/plugins/{{ item.name }}/_site/.gitignore
+    with_items: '{{ elasticsearch_plugins }}'
     when: elasticsearch_plugins is defined
     become: yes
     tags:
